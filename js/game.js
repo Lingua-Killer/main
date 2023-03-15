@@ -8,20 +8,21 @@ const Game = {
     background: undefined,
     player: undefined,
     obstacles: [],
+    backgroundMusic: undefined,
 
 
     keys: {
         UP: 38,
-        DOWN: 40,
         LEFT: 37,
-        RIGHT: 39
+        RIGHT: 39,
     },
 
     init() {
         this.setContext();
-
         this.setDimensions();
         this.start();
+        this.backgroundMusic = new Audio('./audio/music.mp3');
+        this.backgroundMusic.volume = 0.3
     },
     setContext() {
         this.canvas = document.querySelector("#blackboard");
@@ -41,7 +42,7 @@ const Game = {
         this.reset()
 
         this.interval = setInterval(() => {
-
+            this.backgroundMusic.play();
             this.framesCounter++;
             if (this.framesCounter > 3000) {
                 this.framesCounter = 0;
@@ -54,14 +55,16 @@ const Game = {
 
 
     reset() {
-        // 1. Create blackboard
         this.blackboard = new Blackboard(this.ctx, this.width, this.height)
+        this.player = new Player(this.ctx, this.width, this.height, this.keys);
+
 
     },
 
     drawAll() {
-        // 1. Draw background
         this.blackboard.draw();
+        this.player.draw(this.framesCounter);
+
     },
 
 }

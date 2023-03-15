@@ -11,12 +11,12 @@ class Player {
         this.height = 100;
 
         this.image = new Image();
-        this.image.src = "./images/pacman.gif";
+        this.image.src = "./images/pacman.png";
         this.image.frames = 12;
         this.image.framesIndex = 0;
 
-        this.posX = 50;
-        this.posY = this.gameHeight - this.height - 20;
+        this.posX = 25;
+        this.posY = this.gameHeight - this.height - 35;
         this.posY0 = this.posY;
 
         this.velY = 1;
@@ -47,12 +47,6 @@ class Player {
         this.animate(framesCounter);
         // 3. Move player
         this.move();
-        // 4. Draw bullets
-        this.bullets.forEach(function(bullet) {
-                bullet.draw();
-            })
-            // 5. Clear bullets
-        this.clearBullets();
     }
 
     animate(framesCounter) {
@@ -66,7 +60,7 @@ class Player {
     }
 
     move() {
-        if (this.posY < this.posY0) { // Está saltando!
+        if (this.posY < this.posY0) {
             this.posY += this.velY;
             this.velY += this.gravity;
         } else {
@@ -75,39 +69,41 @@ class Player {
         }
     }
 
-    jump() {
-        this.posY -= 40;
-        this.velY -= 8;
+    up() {
+        this.posY -= 20;
+        this.velY -= 5;
+    }
+
+    right() {
+        this.posX -= -20;
+        // this.vel -= 1;
+    }
+    left() {
+        this.posX -= 20;
+        // this.velY -= -1;
     }
 
     setListeners() {
 
         document.addEventListener("keydown", e => {
             switch (e.keyCode) {
-                case this.keys.TOP:
-                    // Check if its on the floor 👀
+                case this.keys.UP:
                     if (this.posY >= this.velY) {
-                        this.jump();
+                        this.up();
                     }
-                    // .jump()
                     break;
-                case this.keys.SPACE:
-                    // .shoot()
+                case this.keys.RIGHT:
+                    if (this.posX <= 583) {
+                        this.right();
+                    }
+                    break;
+                case this.keys.LEFT:
+                    if (this.posX >= 30) {
+                        this.left();
+                    }
                     break;
             }
         });
     }
 
-
-    shoot() {
-        // Add new Bullet to the bullets array
-        this.bullets.push(new Bullets(this.ctx, this.posX, this.posY, this.posY0, this.width, this.height))
-    }
-
-    clearBullets() {
-        // Clear bullets (.filter 👀)
-        this.bullets = this.bullets.filter((bullet) => {
-            return bullet.posX <= this.gameWidth;
-        })
-    }
 }
