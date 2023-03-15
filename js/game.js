@@ -23,6 +23,7 @@ const Game = {
         this.canvas = document.querySelector("#blackboard");
         this.ctx = this.canvas.getContext("2d");
     },
+
     setDimensions() {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
@@ -34,6 +35,7 @@ const Game = {
     start() {
 
         this.reset()
+        console.log(this.blackboard)
 
         this.interval = setInterval(() => {
 
@@ -41,8 +43,10 @@ const Game = {
             if (this.framesCounter > 3000) {
                 this.framesCounter = 0;
             }
+            this.drawAll();
 
         }, 1000 / this.FPS)
+
     },
 
 
