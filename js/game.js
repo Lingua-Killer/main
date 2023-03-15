@@ -9,13 +9,17 @@ const Game = {
     player: undefined,
     obstacles: [],
 
+
     keys: {
-        TOP: 38,
-        SPACE: 32
+        UP: 38,
+        DOWN: 40,
+        LEFT: 37,
+        RIGHT: 39
     },
 
     init() {
         this.setContext();
+
         this.setDimensions();
         this.start();
     },
@@ -35,7 +39,6 @@ const Game = {
     start() {
 
         this.reset()
-        console.log(this.blackboard)
 
         this.interval = setInterval(() => {
 
