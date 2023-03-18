@@ -5,7 +5,7 @@ class Blackboard {
         this.height = h;
 
         this.image = new Image();
-        this.image.src = "./images/blackboard.jpg";
+        this.image.src = "./images/clouds2.png";
 
         this.posX = 0;
         this.posY = 0;

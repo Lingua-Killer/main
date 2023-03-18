@@ -7,7 +7,7 @@ const Game = {
     framesCounter: 0,
     background: undefined,
     player: undefined,
-    obstacles: [],
+    words: [],
     backgroundMusic: undefined,
 
 
@@ -22,7 +22,7 @@ const Game = {
         this.setDimensions();
         this.start();
         this.backgroundMusic = new Audio('./audio/music.mp3');
-        this.backgroundMusic.volume = 0.3
+        this.backgroundMusic.volume = 1
     },
     setContext() {
         this.canvas = document.querySelector("#blackboard");
@@ -30,7 +30,7 @@ const Game = {
     },
 
     setDimensions() {
-        this.width = window.innerWidth / 2;
+        this.width = window.innerWidth;
         this.height = window.innerHeight;
 
         this.canvas.setAttribute('width', this.width);
@@ -47,7 +47,13 @@ const Game = {
             if (this.framesCounter > 3000) {
                 this.framesCounter = 0;
             }
+            this.clear()
             this.drawAll();
+            this.generateWords();
+            this.clearObstacles();
+            if (this.isCollision()) {
+                this.gameOver()
+            }
 
         }, 1000 / this.FPS)
 
@@ -57,6 +63,8 @@ const Game = {
     reset() {
         this.blackboard = new Blackboard(this.ctx, this.width, this.height)
         this.player = new Player(this.ctx, this.width, this.height, this.keys);
+        this.words = [];
+
 
 
     },
@@ -64,7 +72,41 @@ const Game = {
     drawAll() {
         this.blackboard.draw();
         this.player.draw(this.framesCounter);
+        this.words.forEach(function(obs) {
+            obs.draw();
+        })
+    },
+
+    clear() {
+        this.ctx.clearRect(0, 0, this.width, this.height)
 
     },
 
+    generateWords() {
+        if (this.framesCounter % 200 === 0) {
+            this.words.push(new Word(this.ctx, this.height, this.player.posY0, this.player.height))
+        }
+
+    },
+
+    clearWords() {
+        this.words = this.words.filter(function(obs) {
+            return obs.posX >= 0
+        })
+
+    },
+
+    isCollision() {
+        return this.words.some(obs => {
+            return (
+                this.player.posX + this.player.width >= obs.posX &&
+                this.player.posY + this.player.height >= obs.posY &&
+                this.player.posX <= obs.posX + obs.width
+            )
+        })
+    },
+
+    gameOver() {
+        clearInterval(this.interval)
+    }
 }
