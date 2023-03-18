@@ -9,27 +9,27 @@ class Word {
         this.posX = 400;
 
         this.velX = 3;
-        const correctWords = ["pino", "sandía", "melón", "hogar", "mortadelo", "diccionario"];
-        const incorrectWords = ["cloqueta", "morido", "motomami", "Madriz", "helicotero", "Fragoneta"];
+
 
         var allWords = [
-            ["Pino", "Sandía", "Melón", "Hogar", "Mortadelo", "Diccionario"],
-            ["Cloqueta", "Morido", "Motomami", "Madriz", "Helicotero", "Fragoneta"]
+            ["Pino", "Sandía", "Melón", "Hogar", "Mortadelo", "Diccionario", "Coche", "apapachar", "Ademán", "ataraxia", "arrebol", "Beldad", "Inefable"],
+            ["Cloqueta", "Morido", "Motomami", "Madriz", "Helicotero", "Fragoneta", "dixlexia", "exalar", "pregaria", "transtornado", "costipado", "espectativa"]
+
         ];
 
         this.palabraAleatoria = allWords[Math.floor(Math.random() * 2)][Math.floor(Math.random() * allWords[1].length)];
+
 
 
     }
 
     draw() {
 
+        let posRandom = Math.floor(Math.random() * 50)
 
-
-        this.ctx.fillStyle = "black";
-        this.ctx.font = "35px Verdana";
-        this.ctx.fillText(this.palabraAleatoria, this.posX, this.posY)
-
+        this.ctx.fillStyle = "blue";
+        this.ctx.font = "35px Permanent Marker";
+        this.ctx.fillText(this.palabraAleatoria, this.posX, this.posY);
 
         // .move
         this.move();

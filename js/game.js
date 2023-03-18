@@ -85,6 +85,7 @@ const Game = {
     generateWords() {
         if (this.framesCounter % 200 === 0) {
             this.words.push(new Word(this.ctx, this.height, this.player.posY0, this.player.height))
+
         }
 
     },
@@ -97,13 +98,14 @@ const Game = {
     },
 
     isCollision() {
-        return this.words.some(obs => {
+        return this.words.some(word => {
             return (
-                this.player.posX + this.player.width >= obs.posX &&
-                this.player.posY + this.player.height >= obs.posY &&
-                this.player.posX <= obs.posX + obs.width
+                this.player.posX + this.player.width >= word.posX && // colisión horizontal derecha
+                this.player.posY + this.player.height >= word.posY && // colisión vertical inferior
+                this.player.posX <= word.posX + word.width // colisión horizontal izquierda
             )
-        })
+        });
+
     },
 
     gameOver() {
