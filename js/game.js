@@ -50,7 +50,6 @@ const Game = {
             this.clear()
             this.drawAll();
             this.generateWords();
-            this.clearObstacles();
             if (this.isCollision()) {
                 this.gameOver()
             }
@@ -100,9 +99,12 @@ const Game = {
     isCollision() {
         return this.words.some(word => {
             return (
+
+                this.player.posX <= word.posX + (word.width) && // colisión horizontal izquierda
                 this.player.posX + this.player.width >= word.posX && // colisión horizontal derecha
-                this.player.posY + this.player.height >= word.posY && // colisión vertical inferior
-                this.player.posX <= word.posX + word.width // colisión horizontal izquierda
+                (this.player.posY + 70) <= word.posY + word.height && // colisión vertical inferior
+                this.player.height + this.player.posY >= word.posY
+
             )
         });
 

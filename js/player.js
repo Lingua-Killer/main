@@ -8,11 +8,11 @@ class Player {
         this.gameWidth = gameW;
         this.gameHeight = gameH;
 
-        this.width = 200;
-        this.height = 200;
+        this.width = 130;
+        this.height = 130;
 
         this.image = new Image();
-        this.image.src = "./images/player2.png";
+        this.image.src = "./images/playerv3right.png";
         this.image.frames = 4;
         this.image.framesIndex = 0;
 
@@ -102,13 +102,13 @@ class Player {
                     break;
                 case this.keys.RIGHT:
                     if (this.posX <= this.gameWidth - 100) {
-                        this.image.src = "./images/player2.png";
+                        this.image.src = "./images/playerv3right.png";
                         this.right();
                     }
                     break;
                 case this.keys.LEFT:
                     if (this.posX >= 30) {
-                        this.image.src = "./images/player2left.png";
+                        this.image.src = "./images/playerv3left.png";
                         this.left();
                     }
                     break;
