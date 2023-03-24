@@ -9,6 +9,7 @@ const Game = {
     player: undefined,
     words: [],
     backgroundMusic: undefined,
+    gameAnimation: undefined,
 
 
     keys: {
@@ -27,6 +28,7 @@ const Game = {
     setContext() {
         this.canvas = document.querySelector("#blackboard");
         this.ctx = this.canvas.getContext("2d");
+      
     },
 
     setDimensions() {
@@ -63,6 +65,7 @@ const Game = {
         this.blackboard = new Blackboard(this.ctx, this.width, this.height)
         this.player = new Player(this.ctx, this.width, this.height, this.keys);
         this.words = [];
+        this.gameAnimation = new GameAnimation(this.ctx, this.width, this.height);
 
 
 
@@ -70,9 +73,10 @@ const Game = {
 
     drawAll() {
         this.blackboard.draw();
+        this.gameAnimation.draw();
         this.player.draw(this.framesCounter);
-        this.words.forEach(function(obs) {
-            obs.draw();
+        this.words.forEach(function (obs) {
+            obs.draw(); 
         })
     },
 
@@ -90,7 +94,7 @@ const Game = {
     },
 
     clearWords() {
-        this.words = this.words.filter(function(obs) {
+        this.words = this.words.filter(function (obs) {
             return obs.posX >= 0
         })
 
