@@ -6,18 +6,17 @@ class Word {
         this.height = 54;
 
         this.posY = -gameHeight;
-        this.posX = 400;
+        this.posX = this.randomIntFromInterval(0, 600);
 
         this.velX = 3;
 
-
-        var allWords = [
+        this.allWords = [
             ["Pino", "Sandía", "Melón", "Hogar", "Mortadelo", "Diccionario", "Coche", "apapachar", "Ademán", "ataraxia", "arrebol", "Beldad", "Inefable"],
             ["Cloqueta", "Morido", "Motomami", "Madriz", "Helicotero", "Fragoneta", "dixlexia", "exalar", "pregaria", "transtornado", "costipado", "espectativa"]
 
         ];
 
-        this.palabraAleatoria = allWords[Math.floor(Math.random() * 2)][Math.floor(Math.random() * allWords[1].length)];
+        this.palabraAleatoria = this.allWords[Math.floor(Math.random() * 2)][Math.floor(Math.random() * this.allWords[1].length)];
 
 
 
@@ -38,5 +37,9 @@ class Word {
     move() {
         this.posY += this.velX;
 
+    }
+
+    randomIntFromInterval(min, max) { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 }
